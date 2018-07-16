@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+{% include head.html %}
+
+<body>
+
+    <header>
+        <div class="column has-text-centered is-fixed-top content">
+            <h1 class="title">{{site.title}}</h1>
+            <p class="subtitle is-6">{{site.description}}</p>
+        </div>
+    </header>
+
+    <div class="columns is-gapless">
+        <div class="column"></div>
+        <div class="column has-text-centered is-narrow">
+            <a class="button is-small  is-outlined " href="/"> Home </a>
+            {% if page.key == 'about' %}
+            <a class="button is-small is-primary"> About </a>
+            {% else %}
+            <a class="button is-small is-outlined" href="/about/"> About </a>
+            {% endif %}
+        </div>
+        <div class="column"></div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <div class="content">
+                <div class="columns is-centered">
+                    <div class="column is-2 is-desktop"></div>
+                    <div class="column is-mobile content">
+                        {{page.content}}
+                    </div>
+                    <div class="column is-2 is-desktop"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    {% include javascripts.html %}
+
+</body>
+
+</html>

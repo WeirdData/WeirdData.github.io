@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+{% include head.html %}
+
+<body>
+
+    <header>
+        <div class="column has-text-centered is-fixed-top content">
+            <h1 class="title">{{site.title}}</h1>
+            <p class="subtitle is-6">{{site.description}}</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+
+            <div class="columns is-gapless">
+                <div class="column"></div>
+                <div class="column has-text-centered is-narrow">
+                    <div class="content">
+                        <h1> 404 </h1>
+                        <h2>Page not found :(</h2>
+                    </div>
+                </div>
+                <div class="column"></div>
+            </div>
+            <div class="columns is-gapless">
+                <div class="column"></div>
+                <div class="column has-text-centered is-narrow">
+                    <a class="button is-primary" href="/"> Go to Home </a>
+                </div>
+                <div class="column"></div>
+            </div>
+        </div>
+
+    </section>
+
+
+    {% include javascripts.html %}
+
+</body>
+
+</html>

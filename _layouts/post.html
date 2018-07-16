@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+
+{% include head.html %} {% include post_navigation.html %}
+
+<body>
+    <section class="section">
+        <div class="container is-fluid">
+            {% if page.header_image %}
+            <div class="columns is-centered">
+                <div class="column is-2 is-desktop"></div>
+                <div class="column is-mobile">
+                    <figure class="image is-16by9">
+                        <img src="/assets/article_images/{{page.header_image}}" alt="Placeholder image">
+                    </figure>
+                </div>
+                <div class="column is-2 is-desktop"></div>
+            </div>
+
+            {% endif %}
+            <div class="columns is-centered">
+                <div class="column is-2 is-desktop"></div>
+                <div class="content column is-mobile">
+                    <h1 class="title">{{page.title}}</h1>
+
+                    <article class="media">
+                        <figure class="media-left" style="margin-left: 0; margin-right: 10px;">
+                            <p class="image is-64x64 is-hidden-touch">
+                                {% if page.avatar %}
+                                <img src="/assets/avatar/{{page.avatar}}" style="border-radius: 50%;"> {% else %}
+                                <img src="/assets/avatar/placeholder.jpg" style="border-radius: 50%;"> {% endif %}
+                            </p>
+                            <p class="image is-48x48 is-mobile is-hidden-desktop">
+                                {% if page.avatar %}
+                                <img src="/assets/avatar/{{page.avatar}}" style="border-radius: 50%;"> {% else %}
+                                <img src="/assets/avatar/placeholder.jpg" style="border-radius: 50%;"> {% endif %}
+                            </p>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content has-text-grey is-size-7-mobile">
+                                <span>
+                                    <strong>{{page.author}}</strong>
+                                    {% if page.author_twitter %}
+                                    <a href="https://twitter.com/{{page.author_twitter}}">
+                                        <small>@{{page.author_twitter}}</small>
+                                    </a>
+                                    {% endif %}
+                                    <br> Published on {{ page.date | date: "%-d %B %Y" }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="media-right">
+                            <a class="level-item">
+                                <span class="icon is-small">
+                                    <i class="fab fa-twitter"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </article>
+                    <div>
+                        {{page.content}}
+                    </div>
+                </div>
+                <div class="column is-2 is-desktop"></div>
+            </div>
+            {% if page.author_bio%}
+            <div class="columns">
+                <div class="column is-2 is-desktop"></div>
+                <article class="message column">
+                    <div class="message-body">
+                        {{page.author_bio}}
+                    </div>
+                </article>
+                <div class="column is-2 is-desktop"></div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="columns">
+            <div class="column is-2 is-desktop"></div>
+            <div class="column"></div>
+            <div class="column is-narrow ">
+                {% capture share_text %}{{ page.title }} : {{site.baseurl}}{{page.url}}{% endcapture %}
+                <a class="bd-tw-button button is-info" data-social-network="Twitter" data-social-action="tweet" 
+                    target="_blank" href="https://twitter.com/intent/tweet?text={{share_text}}&amp;hashtags=Blog">
+                    <span class="icon">
+                        <i class="fab fa-twitter"></i>
+                    </span>
+                    <span>
+                        Tweet This Post
+                    </span>
+                </a>
+                <a class="bd-tw-button button is-primary"
+                    target="_blank" href="mailto:rohitsuratekar@gmail.com">
+                    <span class="icon">
+                        <i class="fab fa-envelope-open-o"></i>
+                    </span>
+                    <span>
+                        Provide Feedback
+                    </span>
+                </a>
+            </div>
+            <div class="column is-2 is-desktop"></div>
+        </div>
+    </section>
+
+
+    {% include footer.html %} {% include javascripts.html %}
+
+</body>
+
+</html>

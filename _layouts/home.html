@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+{% include head.html %}
+
+<body>
+
+  {% include header.html %}
+
+  <section class="section">
+    <div class="container">
+      {% for post in site.posts %} {% assign loopindex = forloop.index | modulo: 2 %} {% if loopindex == 1 %}
+      <div class="tile is-ancestor">
+        {% endif %}
+        <div class="tile is-parent">
+          <article class="tile is-child">
+            <div class="card">
+              {% if post.header_image %}
+              <div class="card-image">
+                <figure class="image is-16by9">
+                  <a href="{{post.url}}">
+                    <img src="/assets/article_images/{{post.header_image}}" alt="Placeholder image">
+                  </a>
+                </figure>
+              </div>
+              {% endif %}
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-left is-hidden-touch">
+                    <figure class="image is-48x48">
+                      {% if post.avatar%}
+                      <img src="/assets/avatar/{{post.avatar}}" alt="avatar" style="border-radius: 50%;"> {% else %}
+                      <img src="/assets/avatar/placeholder.jpg" alt="avatar" style="border-radius: 50%;"> {% endif %}
+                    </figure>
+                  </div>
+                  <div class="media-content">
+                    <p class="title is-5"> {{post.title}}</p>
+                    {% if post.author%}
+                    <p class="subtitle is-6">By {{post.author}} on {{ post.date | date: "%-d %B %Y" }}</p>
+                    {% else %}
+                    <p class="subtitle is-6">On {{ post.date | date: "%-d %B %Y" }}</p>
+                    {% endif %}
+                    <p>
+                      {{ post.content | strip_html | truncatewords: 50 }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <footer class="card-footer">
+                <a href="{{post.url}}" class="card-footer-item">Read More</a>
+              </footer>
+            </div>
+          </article>
+        </div>
+        {% if loopindex == 0 %}
+      </div>
+      {% endif %} {% endfor %} {% if loopindex == 1 %}
+    </div>
+    {% endif %}
+    </div>
+
+  </section>
+
+
+  {% include footer.html %} 
+  {% include javascripts.html %}
+
+</body>
+
+</html>
