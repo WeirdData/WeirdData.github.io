@@ -2,7 +2,8 @@
 <html>
 
 
-{% include head.html %} {% include post_navigation.html %}
+{% include head.html %} {% include post_navigation.html %} {% capture share_text %}{{ page.title }} :https://weirddata.github.io{{page.url}}{%
+endcapture %}
 
 <body>
     <section class="section">
@@ -51,7 +52,7 @@
                             </div>
                         </div>
                         <div class="media-right">
-                            <a class="level-item">
+                            <a class="level-item" data-social-network="Twitter" data-social-action="tweet" target="_blank" href="https://twitter.com/intent/tweet?text={{share_text}}&amp;hashtags=Blog">
                                 <span class="icon is-small">
                                     <i class="fab fa-twitter"></i>
                                 </span>
@@ -80,9 +81,8 @@
             <div class="column is-2 is-desktop"></div>
             <div class="column"></div>
             <div class="column is-narrow ">
-                {% capture share_text %}{{ page.title }} : {{site.baseurl}}{{page.url}}{% endcapture %}
-                <a class="bd-tw-button button is-info" data-social-network="Twitter" data-social-action="tweet" 
-                    target="_blank" href="https://twitter.com/intent/tweet?text={{share_text}}&amp;hashtags=Blog">
+
+                <a class="bd-tw-button button is-info" data-social-network="Twitter" data-social-action="tweet" target="_blank" href="https://twitter.com/intent/tweet?text={{share_text}}&amp;hashtags=Blog">
                     <span class="icon">
                         <i class="fab fa-twitter"></i>
                     </span>
@@ -90,8 +90,7 @@
                         Tweet This Post
                     </span>
                 </a>
-                <a class="bd-tw-button button is-primary"
-                    target="_blank" href="mailto:rohitsuratekar@gmail.com">
+                <a class="bd-tw-button button is-primary" target="_blank" href="mailto:rohitsuratekar@gmail.com">
                     <span class="icon">
                         <i class="fab fa-envelope-open-o"></i>
                     </span>
