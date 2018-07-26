@@ -40,3 +40,6 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 permalink: /:year/:month/:day/:title:output_ext
+
+kramdown:  
+  parse_block_html: true

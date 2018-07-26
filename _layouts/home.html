@@ -9,7 +9,8 @@
 
   <section class="section">
     <div class="container">
-      {% for post in site.posts %} {% assign loopindex = forloop.index | modulo: 2 %} {% if loopindex == 1 %}
+      {% for post in site.posts %} {% assign loopindex = forloop.index | modulo: 2 %} 
+      {% if loopindex == 1 %}
       <div class="tile is-ancestor">
         {% endif %}
         <div class="tile is-parent">
@@ -54,16 +55,17 @@
         </div>
         {% if loopindex == 0 %}
       </div>
-      {% endif %} {% endfor %} {% if loopindex == 1 %}
+      {% endif %} {% endfor %} 
+      {% if loopindex == 1 %}
+      <div class="tile is-parent"></div>
     </div>
     {% endif %}
     </div>
-
+    
   </section>
 
 
-  {% include footer.html %} 
-  {% include javascripts.html %}
+  {% include footer.html %} {% include javascripts.html %}
 
 </body>
 
