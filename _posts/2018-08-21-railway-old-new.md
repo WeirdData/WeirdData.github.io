@@ -3,7 +3,7 @@ author: Rohit Suratekar
 avatar: rohit_suratekar.jpg
 layout: post
 title:  Indian Railways part II - Old versus New
-date:   2018-08-21 14:00:00
+date:   2018-08-22 14:00:00
 categories: data
 tags: railway, india
 author_bio: Author is a computational biologist at NCBS, Bangalore.
