@@ -43,29 +43,34 @@ Next obvious thing and probably most important in this context is to check most 
 As seen in Fig [2](#fig2), 'Data', 'Research' and 'Researchers' were most used nouns in the ORF proposals. It looks like everyone likes to concentrate on the 'data'. 'health' and 'community' is also on top because one of the aims of ORF is to 'making health research more open'. Few more of most common nouns are shown in Fig [3](#fig3). Our control worked as expected. To kill a Mockingbird gave 'jem', 'atticus' and 'dill' as most common nouns which are names of few of the main characters of the book. Furthermore, it was not surprising to see 'species' and 'selection' as most common nouns from the origin of species. I am little surprised by seeing the word 'science' at such a lower rank in ORF proposals (Fig [3](#fig3)).
 <a name="fig3"></a>
 
-|![Fig 3: noun extra](/assets/article_images/2018-09-15-orf-applications/noun_extra.png "noun extra")|
+|![Fig 3: noun extra](/assets/article_images/2018-09-15-orf-applications/word_cloud.png "noun extra")|
 |:--:|
-|Fig 3: Most common nouns used in ORF applications. <sup>[3](#ref3)</sup>|
+|Fig 3: Top 100 nouns used in ORF applications. <sup>[3](#ref3)</sup>|
+
+
+|![Fig 4: word cloud](/assets/article_images/2018-09-15-orf-applications/other_cloud.png "word cloud")|
+|:--:|
+|Fig 4: Top 100 nouns used in On the Origin of Species and To Kill a Mockingbird. <sup>[3](#ref3)</sup>|
 
 Next, I checked what are the most common verbs. Interesting to see how the 'tense' is changing in a different kind of literary work. As we are looking into proposals, we will get future tense of verbs. I was surprised to see the similarity between proposals and the origin of species. 
 
-|![Fig 4: verb](/assets/article_images/2018-09-15-orf-applications/verb.png "verb")|
+|![Fig 5: verb](/assets/article_images/2018-09-15-orf-applications/verb.png "verb")|
 |:--:|
-|Fig 4: Most common verbs. <sup>[3](#ref3)</sup>|
+|Fig 5: Most common verbs. <sup>[3](#ref3)</sup>|
 
 Following are few more plots which shows some more grammatical objects and their distribution,
 
-|![Fig 5: adverb](/assets/article_images/2018-09-15-orf-applications/adverb.png "adverb")|
+|![Fig 6: adverb](/assets/article_images/2018-09-15-orf-applications/adverb.png "adverb")|
 |:--:|
-|Fig 5: Most common adverbs. <sup>[3](#ref3)</sup>|
+|Fig 6: Most common adverbs. <sup>[3](#ref3)</sup>|
 
-|![Fig 6: adposition](/assets/article_images/2018-09-15-orf-applications/adposition.png "adposition")|
+|![Fig 7: adposition](/assets/article_images/2018-09-15-orf-applications/adposition.png "adposition")|
 |:--:|
-|Fig 6: Most common adpositions. <sup>[3](#ref3)</sup>|
+|Fig 7: Most common adpositions. <sup>[3](#ref3)</sup>|
 
-|![Fig 7: pronoun](/assets/article_images/2018-09-15-orf-applications/pronoun.png "pronoun")|
+|![Fig 8: pronoun](/assets/article_images/2018-09-15-orf-applications/pronoun.png "pronoun")|
 |:--:|
-|Fig 7: Most common pronoun. <sup>[3](#ref3)</sup>|
+|Fig 8: Most common pronoun. <sup>[3](#ref3)</sup>|
 
 ### Final Remarks
 
