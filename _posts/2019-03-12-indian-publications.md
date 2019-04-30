@@ -84,14 +84,14 @@ Next, I checked how do these statistics look in front of other countries. I took
 
 Overall statistics regarding top journals for US  (total of 4379149 papers in 15489 distinct journals)  and China (total of 1356651 papers in 8146 distinct journals) is given below
 
-| USA (number of paper) |  China (nsumber of papers)|
+| USA (number of paper) |  China (number of papers)|
 |---|:---|
 | PLoS One. (59832) | PLoS One. (31863) |
 | J Biol Chem. (47819) | Sci Rep. (26499) |
 | Proc Natl Acad Sci USA. (39167) | Chem Commun (Camb). (11551) |
 | J Am Chem Soc. (26193)| Chin Med J (Engl) (11133)|
 
-In conclusion, this analysis provides a wider perspective on Indian science. Above the table, Fig [6](#fig6) and [7](#fig7) suggest that publication trends of Indian researchers were similar to that of US and China. However, properly curated data should be able to provide us with a more clear picture. 
+In conclusion, this analysis provides a wider perspective on Indian science. Above table, Fig [6](#fig6) and [7](#fig7) suggest that publication trends of Indian researchers were similar to that of US and China. However, properly curated data should be able to provide us with a more clear picture. 
 
 ### References and Notes
 1. <a name="ref1"></a> UNESCO Institute for Statistics, [The World Bank ](https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS)
