@@ -11,6 +11,8 @@ author_twitter: rohitsuratekar
 header_image: 2018-09-10-secret-colors/colors.jpg
 ---
 
+> Update: New and updated version of this blog is now available [here](/2019/06/11/secret-colors-2.html).
+
 I am obsessed with good colors. I particularly pay attention to all the colors I have used in my illustrations and graphics. This is extended to my data visualization also. There is huge amount of literature on how selecting correct colors impact your work <sup>[1](#ref1)</sup>. I recommend you to read one very old blog [Elegant Figures](https://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/05/subtleties-of-color-part-1-of-6/) by  Robert Simmon. This blog series not only talks about the basics of color theory but also the inspiration one should take to select colors for visualization. This blog post is all about colors and the inspiration behind my new `python` library [SecretColors](https://pypi.org/project/SecretColors/). For those who just want to check out library functions and comparison with `matplotlib` can skip the following section and can directly check out [next](#library).
 
 ### In search of good color palette
