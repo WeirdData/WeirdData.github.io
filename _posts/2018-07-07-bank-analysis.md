@@ -51,7 +51,7 @@ However this can be misleading as population of these states are very different.
 Fig 4 suggest that Chandigarh has highest number of bank branches per person (Branches: 1990, Population: 1110820 <sup>[3](#myfootnote3)</sup>). 
 
 
-### More detais
+### More details
 
 Generally we presume bank branches will be concentrated in metro cities. To test this hypothesis I checked how is the city wise distribution. 
 
