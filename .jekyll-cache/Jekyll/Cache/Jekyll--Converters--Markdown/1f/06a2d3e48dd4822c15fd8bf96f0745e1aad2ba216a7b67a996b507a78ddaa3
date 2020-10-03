@@ -1,0 +1,134 @@
+I"�-<p>In my <a href="https://weirddata.github.io/2018/07/25/railway-stats.html">previous</a> post I have described how the Indian Railway database is rich in information and how we can visualize this data in the better way. This post is a continuation of that analysis. Here, we will explore how this data can be visualized by using a real map. You can use a simple <code class="language-plaintext highlighter-rouge">python</code> <a href="https://github.com/WeirdData/RailwayVisualization">code</a> to perform this analysis by yourself. Please refer <a href="https://weirddata.github.io/2018/07/25/railway-stats.html">previous</a> post to check how data was obtained and curated.</p>
+
+<h3 id="visualizing-geographical-data">Visualizing geographical data</h3>
+
+<p>This is a little bit technical section, a reader can skip this if they just want to enjoy visualizations :) Major difficulty I faced while performing this analysis is regarding visualizing geographical data. I wanted to use India’s map to explain different trends of this data. There are some standard python libraries like <code class="language-plaintext highlighter-rouge">basemap</code> which are shipped based on <code class="language-plaintext highlighter-rouge">matplotlib</code>. However, while installing these libraries in my windows environment, I was running into some or another problem. They have very peculiar dependencies. My <code class="language-plaintext highlighter-rouge">conda</code> virtual environment was also not able to install them properly.  Finally, I decided to work with <code class="language-plaintext highlighter-rouge">osmnx</code> which wraps around <code class="language-plaintext highlighter-rouge">geopandas</code> and <code class="language-plaintext highlighter-rouge">networkx</code>. This library is good but has very simple functions which are not very intuitive to customize. Nonetheless, I decided to workaround by using some dirty hacks. Check out <a href="https://github.com/WeirdData/RailwayVisualization">code</a> comments for a better understanding of how various functions are working. Many plots shown in this post are modified after plotting to add legends and other information <sup><a href="#ref1">1</a>, <a href="#ref1">2</a></sup>. There was a problem in plotting Lakshadweep and Andaman and Nicobar Islands on the current scale because of their size and no ‘map polygon’ availability in <a href="https://www.openstreetmap.org">OpenStreetMap</a>. Query to OpenStreetAPI was returning ‘point’ object. If I tried to put this on the current map by converting it to a polygon, I was not getting proper scaling. Hence finally I decided to not plot them on in this analysis.</p>
+
+<h3 id="state-with-most-number-of-railway-stations">State with most number of railway stations</h3>
+<p>As soon as my code started working, the first thing I checked how different train stations are distributed across India. I sorted all the data with unique railway station codes. Then I checked in which state those stations are present.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/assets/article_images/2018-08-25-railway-stats-2/state_wise_stations.png" alt="Fig 1: Distribution of railway stations" title="Distribution of railway stations" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Fig 1: Distribution of total railway stations across Indian States <sup><a href="#ref1">1</a>, <a href="#ref1">2</a>, <a href="#ref3">3</a></sup>. Top 5 states are with most number of railway stations are shown.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Fig 1 shows that, as per our data-set, Uttar Pradesh has the most number of railway stations in India. It has <strong>1118</strong> railway stations out of total 8155 railway stations in all over India. This represents <strong>13.70%</strong> of total train stations in India. Top 5 states represent<strong>45.66%</strong> of a total railway station in India.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/assets/article_images/2018-08-25-railway-stats-2/state_wise_stops.png" alt="Fig 2: Distribution of railway stops" title="Distribution of railway stops" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Fig 2: Distribution of total railway stops across Indian States <sup><a href="#ref1">1</a>, <a href="#ref1">2</a>, <a href="#ref3">3</a></sup>. Top 5 states are with most number of railway stops are shown.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Next, I checked which state has the most number of train stops. This can be calculated by checking every stop on each train. As Fig 2 represents, West Bengal has the most number of railway stops in India with whooping <strong>35311</strong> stops representing <strong>18.97%</strong> of all the rail stops an entire country. Top 5 states represent<strong>59.88%</strong> of total railway stops.</p>
+
+<h3 id="distribution-of-trains-across-states">Distribution of trains across states</h3>
+
+<p>To understand where the most number of trains are originating, I checked a number of train origins. Train origin represents railway station at which given train is starting. From station name, we can calculate trains originating from a given state.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/assets/article_images/2018-08-25-railway-stats-2/state_wise_trains.png" alt="Fig 3: Distribution of train origins" title="Distribution of train origins" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Fig 3: Distribution of number of train origins across Indian States <sup><a href="#ref1">1</a>, <a href="#ref1">2</a>, <a href="#ref3">3</a></sup>. This represents number of trains originated from given state.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>According to Fig 3, most of the train originating from Maharashtra. Total <strong>2327</strong> trains out of 11114 that is <strong>20.93%</strong> of total trains originate from Maharashtra. Looking at other top states, one can think this is due to a large number of locals and suburban train origins. I have discussed this issue in my <a href="https://weirddata.github.io/2018/07/25/railway-stats.html">previous</a> post also. However, now that we have a <a href="https://weirddata.github.io/2018/08/21/railway-old-new.html">way</a> of differentiating between suburban and long distance trains, we can check which state has the most number of long-distance train origins.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/assets/article_images/2018-08-25-railway-stats-2/state_wise_long_distance.png" alt="Fig 4: Distribution of long distance train origins" title="Distribution long distance train origins" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Fig 4: Distribution of number of long distance train origins across Indian States <sup><a href="#ref1">1</a>, <a href="#ref1">2</a>, <a href="#ref3">3</a></sup>. Top 5 states are represnted in the map along with number of long distance trains originating from them.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>As seen in Fig 4, most numbers of long-distance trains originate from Uttar Pradesh. Total of <strong>418</strong> trains out of 4395 originates from Uttar Pradesh. West Bengal also shares an almost same number of train origins (417). These two states account for <strong>18.99%</strong> of all long-distance train origins in India.</p>
+
+<h3 id="train-departure-arrival-timings">Train departure-arrival timings</h3>
+<p>So far in my life, almost all the time my train departure was in the early morning or late at night. Hence I looked at how different trains are departed or arrived at the station. First and foremost I checked at what time trains depart and arrive.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/assets/article_images/2018-08-25-railway-stats-2/most_time.png" alt="Fig 5: Distribution of common timings" title="Distribution of common timings" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Fig 5: Distribution of common timings.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>As expected, the most common timing for a departure of the train is <strong>6 AM</strong> (Fig 5) while for arrival is <strong>9.45 AM</strong>. By excluding local and suburban trains, this time still remained similar. However, this is a very crude approach to conclude anything. To get a better idea we need to plot the departure and arrival timings of all the trains. Hence, I binned these timings into 24 hours and plotted the same graph again.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/assets/article_images/2018-08-25-railway-stats-2/time_distribution.png" alt="Fig 6: Distribution of timings" title="Distribution of timings" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Fig 6: Distribution of departure and arrival times of each trains.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>I was surprised to see a bimodal distribution of both arrival and departure timings. Moreover, there was almost 4-hour shift in peaks between departure and arrival timings. As expected, I found two peaks. However, after looking at departure - arrival time peaks, I realized it is closed to office time. Then I remember again that it might be an effect of local and passenger trains. To my surprise, even for long-distance trains, this bimodal distribution remained similar. Only evening arrival peak shifted by 1 hour (See Fig 7).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><img src="/assets/article_images/2018-08-25-railway-stats-2/time_distribution_long_distance.png" alt="Fig 7: Distribution of long distance train timings" title="Distribution of long distance train timing" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Fig 7: Distribution of departure and arrival times of each long distance trains.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In conclusion, a very simple database can be visualized in a countless different way giving us an opportunity to understand it in better ways. I can do again a lot of a different kind of analysis on this limited data-set like what is the distribution of train stops, how train stops at different states and stations, how different states have different arrival and departure timings etc. There are many possibilities. We just need a small amount of programming knowledge to uncover such non-obvious trends. In the future, I will visit this data-set again with little bit more complex graph theory and network analysis.</p>
+
+<h3 id="references-and-notes">References and Notes</h3>
+<ol>
+  <li><a name="ref1"></a> Important Note: Shapes of states are retrieved from <a href="https://www.openstreetmap.org">OpenStreetMap</a> query. Official administrative map might look little different. Readers are advice to understand technical difficulty in using official maps.</li>
+  <li><a name="ref2"></a> Important Note: Jammu and Kashmir map is borrowed from Government of India <a href="http://censusindia.gov.in/maps/State_Maps/StateMaps_links/j_k.html">official</a> census website.</li>
+  <li><a name="ref3"></a> Lakshadweep and Andaman and Nicobar Islands are not shown because of scaling issues as discussed in section “Visualizing geographical data”.</li>
+  <li>https://www.irfca.org/faq/faq-number.html</li>
+</ol>
+
+<p>Code used in the above analysis can be found <a href="https://github.com/WeirdData/RailwayVisualization">here</a>.</p>
+
+<p><em>(Header image is downloaded from Pixabay.com under CC0-license)</em></p>
+
+:ET

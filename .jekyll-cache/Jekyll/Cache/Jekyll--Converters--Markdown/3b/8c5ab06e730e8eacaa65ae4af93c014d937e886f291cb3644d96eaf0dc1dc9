@@ -1,0 +1,230 @@
+I"�@<p>In this internet age, you must have encountered at least one or another form of Machine Learning (ML) in your daily use. It can be simple <a href="https://en.wikipedia.org/wiki/CAPTCHA">Captcha</a> , <a href="https://en.wikipedia.org/wiki/Neural_machine_translation">Language Translation</a> or all the <a href="https://en.wikipedia.org/wiki/Digital_display_advertising">ads</a> you see on various websites. ML has invaded our lives whether you believe it or not. This blog post is about a special type of ML usage called ‘<a href="https://en.wikipedia.org/wiki/Recommender_system">recommender system</a>’ which has been heavily used in providing recommendations to the user in various context. Most popular examples of this system are movie recommendation in Netflix<sup><a href="#ref1">1</a></sup>, item listing in Amazon <sup><a href="#ref2">2</a></sup>, next song in Spotify<sup><a href="#ref3">3</a></sup>, explore photos in Instagram<sup><a href="#ref4">4</a></sup> and the list goes on. So it is not surprising that many of ML courses use a recommender system to explain basic ML concepts. Here I will explore one such recommender system using a very famous <a href="https://movielens.org/">MovieLens</a> database. I will make a simple recommender system which will show me movie recommendations based on my history.</p>
+
+<h2 id="the-strategy">The Strategy</h2>
+<p>This database is used by literally thousands of people around the world. They <a href="https://duckduckgo.com/?q=movielens+recommender+system&amp;t=ffab&amp;ia=web">all</a> have created a recommender system from mostly similar techniques. In this blog post, I will use two distinct scenarios where I can implement these concepts (See Fig <a href="#fig1">1</a>).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><a name="fig1"></a> <img src="/assets/article_images/2020-10-01-movie-recommendation/category.png" width="70%" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Fig 1: Two different scenarios used in this analysis.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Following details shows the overview of the MovieLens database (as of 1O Oct 2020),</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Total Movies</td>
+      <td>27022</td>
+    </tr>
+    <tr>
+      <td>Total Categories</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <td>Movies Year</td>
+      <td>1894 to 2015</td>
+    </tr>
+    <tr>
+      <td>Total Ratings</td>
+      <td>20000263</td>
+    </tr>
+    <tr>
+      <td>Total Users</td>
+      <td>138493</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="content-based-filtering">Content-Based Filtering</h2>
+
+<p>In this method, we will find ‘similar movies’. One can provide any movie name as an input and we will show similar movies. Our code will gather information about this movie by looking at its genres and tags given by other users. We will then generate a matrix which will have both our tags and genres. This entire process is shown in Fig <a href="#fig2">2</a>. Code used in achieving this can be found <a href="https://github.com/WeirdData/MovieLensAnalysis">here</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><a name="fig2"></a> <img src="/assets/article_images/2020-10-01-movie-recommendation/content_based.png" width="70%" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Fig 2: Steps in content-based filtering method.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Our code will generate the <code class="language-plaintext highlighter-rouge">cosine-similarity</code> <sup><a href="#ref5">5</a></sup> matrix between every movie based on each movies tags and genres. When user input’s their movie name, we will just search in our <code class="language-plaintext highlighter-rouge">cosine-similarity</code> matrix and get a list of movies which are most similar to each other. Besides, we will reorder them based on their ranking. Another simple tweak I did was reduced the weight of genre in calculating final distance. It improved our similar movie predictions. Following are some of the results from this method</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Input Movie</th>
+      <th>Similar Movies (top 3, in order)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Spider-Man</td>
+      <td>Spider-Man 2, Spider-Man 3, X-Men</td>
+    </tr>
+    <tr>
+      <td>The Shawshank Redemption</td>
+      <td>The Godfather, The Green Mile, Mystic River</td>
+    </tr>
+    <tr>
+      <td>Toy Story</td>
+      <td>Toy Story 2, Finding Nemo, Monsters, Inc.</td>
+    </tr>
+    <tr>
+      <td>The Grudge</td>
+      <td>The Haunting , The Ring, The Amityville Horror</td>
+    </tr>
+    <tr>
+      <td>The Wolf of Wall Street</td>
+      <td>Mr. Nice, Spun, Trainspotting</td>
+    </tr>
+    <tr>
+      <td>The Notebook</td>
+      <td>Blue Valentine, Titanic, The Vow</td>
+    </tr>
+    <tr>
+      <td>Memento</td>
+      <td>Se7en, The Usual Suspects, The Game</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>I must say, these are pretty accurate predictions. In most of the results, we got movies similar to our input movie. This suggests tagging done by users is pretty good and our cosine-similarity is working as expected. In future, we can expand by taking multiple movies as input and predicting movie similar to those.</p>
+
+<h3 id="advice-for-large-data">Advice for large data</h3>
+
+<p>The generation of the <code class="language-plaintext highlighter-rouge">cosine-similarity</code> matrix for a huge number of movies is very time consuming and computationally heavy. Be careful about your system configuration. You will need huge RAM depending on the number of movies and ratings you are using. It is a good idea to save the matrix on the disk and access it for our future predictions. I used the <em>HDF5</em> file to save the matrix and used it for future predictions.</p>
+
+<h2 id="user-based-filtering">User-Based Filtering</h2>
+
+<p>Content-based filtering provided good recommendations given a specific movie. However, the most important limitation of that method is that we will never get a prediction for the movie from some another genre or completely different movie which user might like. This is where <em>user-based filtering</em> will help us. In this method, we will train the neural network which will predict movie rating based on the rating history of any user.  With this method, the user will provide names of movies and their ratings. Our model will predict movies which the user might like. This strategy is shown in Fig <a href="#fig3">3</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><a name="fig3"></a> <img src="/assets/article_images/2020-10-01-movie-recommendation/user_based.png" width="90%" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Fig 3: Steps in user-based filtering method.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="the-neural-network">The Neural Network</h3>
+
+<p>I won’t go into details about how the neural network was designed and what one should think about. There are plenty of blogs to tackle any aspect of this process including how to improve accuracy, speed and computation time. I used <code class="language-plaintext highlighter-rouge">keras</code> functional programming to build the model (Fig <a href="#fig4">4</a>). In this model, I used <code class="language-plaintext highlighter-rouge">Embedding</code> Layers to represent big input matrix in lower dimensions. I projected all input onto 16 dimensions. This is an arbitrary number, there is no logic to this. I wanted to use more dimensions but given limited computational power, I stuck to 16. Later on, I just combined these dimensions by concatenating them. Few of the blogs online have suggested using DOT product, however, in my experience, in this case, contcatenation was better as I wanted a representation of both users and movies. Next, I used a <code class="language-plaintext highlighter-rouge">Dense</code> layers which acts like hidden layer with 32 neurons and the final output layer with 1 neuron which should give me value between 0-1.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><a name="fig4"></a> <img src="/assets/article_images/2020-10-01-movie-recommendation/model.png" width="90%" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Fig 4: The Neural Network generated in <code class="language-plaintext highlighter-rouge">keras</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>I have normalized my rating such that 1 will represent 5 and 0 will represent 0. Other parameters like an epoch, loss function, batch size etc are used randomly. One should use multiple such parameters to fine-tune their model. Model accuracy history across multiple epochs is shown in Fig <a href="#fig5">5</a>. We got pretty good accuracy in pour model as our final <code class="language-plaintext highlighter-rouge">Loss</code> was around 0.024. Even validation loss was minimal and did not show overfitting.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><a name="fig5"></a> <img src="/assets/article_images/2020-10-01-movie-recommendation/fitting.png" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Fig 5: Loss curv for model shown in Fig <a href="#fig4">4</a>. X-axis represents time (here, epochs) while Y-axis represents Loss.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="cold-start-problem-for-the-neural-network">Cold-Start Problem for the Neural Network</h3>
+
+<p>Cold-start problem is a pretty old and consistent problem for any recommender system. Our system is no exception. Our neural network is trained with <code class="language-plaintext highlighter-rouge">user-id</code> and <code class="language-plaintext highlighter-rouge">movie-id</code> pair (See Fig <a href="#fig3">3</a> and <a href="#fig4">4</a>). So to get any prediction from our trained model, we need to provide <code class="language-plaintext highlighter-rouge">user-id</code>. However, as we are predicting movie ratings for a completely new user, we will not have <code class="language-plaintext highlighter-rouge">user-id</code> to provide input to our model.</p>
+
+<p>To circumvent this issue, I decided to search for the most similar existing user from our database. This can be achieved by looking at <code class="language-plaintext highlighter-rouge">cosine-similarity</code> between the movie-rating matrix of the new user and existing users. From this, we can get a user who closely resembles the new user and we can use its recommendations for our new user. In reality, such a recommender system usually go for general recommendations based on user location, country, season etc. And later they will include new users to their revised model as a new user will keep watching more movies.</p>
+
+<h3 id="predictions-from-the-neural-network">Predictions from the Neural Network</h3>
+
+<p>Following are some of the predictions from this model.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Input Movies [Input Ratings]</th>
+      <th>Top 5 Recommendations [Score]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>The Godfather [4.5] <br /> The Godfather: Part III [4]</td>
+      <td>The Shawshank Redemption [0.879] <br /> The Usual Suspects [0.866] <br /> Fight Club [0.857]<br />The Departed [0.836] <br /> American History X [0.832]</td>
+    </tr>
+    <tr>
+      <td>Batman Begins [4.5] <br /> Batman: Assault on Arkham [5] <br /> The Avengers [3.5] <br /> Iron Man 3 [4]</td>
+      <td>The Sound of Music [0.926] <br /> Anne of Green Gables [0.926] <br /> Pride and Prejudice [0.925] <br /> White Christmas [0.923] <br /> Babylon 5: In the Beginning [0.919]</td>
+    </tr>
+    <tr>
+      <td>Batman Begins [1] <br /> Batman: Assault on Arkham [1] <br /> The Avengers [1]  <br /> Iron Man 3 [1]</td>
+      <td>The Dark Knight [0.973] <br /> The Usual Suspects [0.952] <br /> The Shawshank Redemption [0.948] <br /> Inception [0.94] <br /> The Matrix [0.939]</td>
+    </tr>
+    <tr>
+      <td>The Haunting [3.5] <br /> The Ring [4] <br /> The Grudge [4.5] <br /> Iron Man 3 [1]</td>
+      <td>Ravenous [1.005] <br /> The Devil’s Rejects [0.983] <br /> From Dusk Till Dawn [0.976] <br /> Saw II [0.969] <br /> Cruel Intentions [0.967]</td>
+    </tr>
+    <tr>
+      <td>Toy Story [4.5] <br /> Toy Story 2 [4] <br /> Finding Nemo [3] <br /> Monsters, Inc. [3.5]</td>
+      <td>The Civil War [1.015] <br /> Schindler’s List [1.003] <br /> The Shawshank Redemption [0.996] <br /> Band of Brothers [0.994] <br /> Wallace &amp; Gromit: The Wrong Trousers [0.985]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We got pretty interesting predictions. I deliberately used multiple movies and changed their rating to see how my predictions will change. There are intriguing predictions like “The Sound of Music” was recommended where the user had given all Marvel action movies. I think this has happened because multiple users have rated high for both action and romantic movies. This is the biggest advantage of user-based filtering as we would have never received this recommendation in content-based filtering. There are some clear issues in this recommendation. Like when I lowered Batman movie ratings, then I received more appropriate predictions than when those ratings were high. Input with all animated kids movies received war movie recommendations. Next section will talk about what can be the issue and how one may overcome it.</p>
+
+<h3 id="further-improvements">Further improvements</h3>
+
+<p>One area of improvement which many other models use but I have not used here is to add ‘user-bias’ to our neural network. Many users rate all movies with high rating or low rating. It creates the bias towards ratings. We can potentially correct for such bias by multiplying user bias in our neural network. Current model is biased towards favorite movies and do not consider hated movies properly. One can add this information in normalizing ratings. Another important point which I did not address while building the model is selecting correct user from multiple of similar users (for cold-start problem). This is little complicated to address but careful selection of proper distance matrix can overcome this.</p>
+
+<p>In addition to above, there are multiple things which we can do to further improve these predictions like adding more data regarding movies (like reviews, cast and crew information etc) or user (like location, country etc). We can also use mixed strategy where we can use distance matrix from various parameters and train our neural network. One can also add user-interaction information (like which movie user select, watches trailer etc). If you are part of multi-billion dollar company, you can easily get such data along with many more additional parameters :)</p>
+
+<p><em>Pro Tip</em>: I was limited by computational power. Many of my big models were just too complicated for my 4-year-old laptop. To get a little bit better computational power, I used Kaggle Notebooks. Few of the testing models were trained on their notebooks. So thank you Kaggle :)</p>
+
+<p>Full code can be found <a href="https://github.com/WeirdData/MovieLensAnalysis">here</a>.</p>
+
+<p><em>All web links provided in this article are accessed on 1 Oct 2020 (if not mentioned otherwise)</em></p>
+
+<h2 id="references">References</h2>
+<ol>
+  <li><a name="ref1"></a> How Netflix’s Recommendations System works - https://help.netflix.com/en/node/100639 [accessed on 1 Oct 2020]</li>
+  <li><a name="ref2"></a> Real-time personalization and recommendation - https://aws.amazon.com/personalize/ [accessed on 1 Oct 2020]</li>
+  <li><a name="ref3"></a> Guidelines for surfacing Categorized Content Recommendations in your mobile app - https://developer.spotify.com/use-cases/mobile-apps/content-recommendations/ [accessed on 1 Oct 2020]</li>
+  <li><a name="ref4"></a> Powered by AI: Instagram’s Explore recommender system - https://ai.facebook.com/blog/powered-by-ai-instagrams-explore-recommender-system/ [accessed on 1 Oct 2020]</li>
+  <li><a name="ref5"></a> Cosine similarity - https://en.wikipedia.org/wiki/Cosine_similarity [accessed on 1 Oct 2020]</li>
+</ol>
+
+<p><em>(Header image by <a href="https://pixabay.com/photos/movie-reel-projector-film-cinema-918655/">free-photos-242387</a> from <a href="https://pixabay.com/">Pixabay</a>, released under CC0-license.)</em></p>
+:ET
