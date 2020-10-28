@@ -11,7 +11,7 @@ header_image: 2020-10-16-text-generation/got.jpg
 assets: /assets/article_images/2020-10-16-text-generation
 ---
 
-National Language Processing ([NLP](https://en.wikipedia.org/wiki/Natural_language_processing)) is one of the highly researched topics in the field 
+Natural Language Processing ([NLP](https://en.wikipedia.org/wiki/Natural_language_processing)) is one of the highly researched topics in the field 
 of Artificial Intelligence ([AI](https://en.wikipedia.org/wiki/Artificial_intelligence)). It is widely used in different contexts like language 
 translation, personal assistants (like [Siri](https://en.wikipedia.org/wiki/Siri)), spam detection, document tagging, speech 
 recognition etc. Researchers are developing new methods and tools every day related to NLP. 
