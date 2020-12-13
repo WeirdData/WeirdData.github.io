@@ -44,47 +44,46 @@ Let us start with the toss :)
 
 |<a name="fig2"></a> <img src="{{page.assets}}/toss.png" width="80%"/>|
 |:--:|
-| Fig 2: Correlation between no of times team won the match vs no of time they won the toss|
+| Fig 2: Correlation between number of times team won the match vs number of time they won the toss|
 
 Now team has to take a decision weather to bat first or field.
 
 |<a name="fig3"></a> <img src="{{page.assets}}/bat.png" width="80%"/>|
 |:--:|
-| Fig 3: Correlation between no of times team won the match vs no of times they decided to bat first after winning the toss|
+| Fig 3: Correlation between number of times team won the match vs number of times they decided to bat first after winning the toss|
 
 What if they decoded to field first instead bat?
 
 |<a name="fig4"></a> <img src="{{page.assets}}/field.png" width="80%"/>|
 |:--:|
-| Fig 4: Correlation between no of times team won the match vs no of times they decided to field first after winning the toss|
+| Fig 4: Correlation between number of times team won the match vs number of times they decided to field first after winning the toss|
 
 Is it depend on number of matches team has played? Why not :)
 
 |<a name="fig5"></a> <img src="{{page.assets}}/matches.png" width="80%"/>|
 |:--:|
-| Fig 5: Correlation between no of times team won the match vs number of matches played by that team.|
+| Fig 5: Correlation between number of times team won the match vs number of matches played by that team.|
 
 Maybe weather is affecting these results? Well, I did not have time to extract historic weather data, but 
 I did next best thing. Looked at in which city match was played.
 
 |<a name="fig6"></a> <img src="{{page.assets}}/city.png" width="80%"/>|
 |:--:|
-| Fig 6: Correlation between no of times team won the match on their home ground vs number of team has played the match on their home ground.|
+| Fig 6: Correlation between number of times team won the match on their home ground vs number of team has played the match on their home ground.|
 
 ## What is happening?
 
 If you are a keen observer, it is pretty obvious that all these correlations might be due to two clusters of teams, 
-Pune, Gujarat, Kochi (which were active for only few IPL seasons) vs rest. You are on the right track. See Fig [7]($fig), 
-after removing these three teams, R<sup>2</sup> value dropped drastically when I removed those teams from the 
-correlation analysis. I observed a similar trend in all other plots. 
+Pune, Gujarat, Kochi (which were active for only few IPL seasons) vs rest. R<sup>2</sup> value dropped drastically when I removed those teams from the 
+correlation analysis (See Fig [7]($fig)). I observed a similar trend in all other plots. 
 
 |<a name="fig7"></a> <img src="{{page.assets}}/city_removed.png" width="80%"/>|
 |:--:|
-| Fig 7: Correlation between no of times team won the match on their home ground vs number of team has played the match on their home ground. After removing Pune, Gujarat and Kochi|
+| Fig 7: Correlation between number of times team won the match on their home ground vs number of team has played the match on their home ground. After removing Pune, Gujarat and Kochi|
 
-These three team were clear outliers in our correlation analysis. How can we prove this in more systematic way? I just aggregated data
-shown in all the plots above and then performed PCA. I was happy with the results. As expected, we can clearly see two clusters 
-of team (see Fig [8](#fig8)). It suggests that 95% of variation in our data can be explained by just one variable (see x-axis of Fig 
+These three team were clear outliers in my correlation analysis. How can I prove this in more systematic way? I just aggregated data
+shown in all the plots above and then performed PCA. I was happy with the results. As expected, I can clearly see two clusters 
+of team (see Fig [8](#fig8)). It suggests that 95% of variation in this data can be explained by just single variable (see x-axis of Fig 
 [8](#fig8)).
 
 |<a name="fig8"></a> <img src="{{page.assets}}/pca.png" width="80%"/>|
@@ -96,7 +95,7 @@ correlation vanishes (as seen by lower R<sup>2</sup> value) in Fig [9](#fig9) in
 
 |<a name="fig9"></a> <img src="{{page.assets}}/toss_norm.png" width="80%"/>|
 |:--:|
-| Fig 9:  Correlation between no of times team won the match vs winning toss. Data is normalized to number of matches played by the respective team.|
+| Fig 9:  Correlation between number of times team won the match vs winning toss. Data is normalized to number of matches played by the respective team.|
 
 There are still more variables in this dataset which can provide more 'spurious' correlations. Maybe next time:)
 
